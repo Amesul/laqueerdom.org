@@ -16,8 +16,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        $redirectRoute = request()->get('redirect-route');
-        return view('auth.login', ['redirectRoute' => $redirectRoute]);
+        $redirection = request()->get('redirection');
+        return view('auth.login', ['redirection' => $redirection]);
     }
 
     /**
@@ -29,13 +29,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route(route($request->get('redirect-route')), absolute: false));
+        if ($request->get('redirection') === 'artist') {
+            return redirect()->intended(route('artist.dashboard', absolute: false));
+        } elseif ($request->get('redirection') === 'admin') {
+            return redirect()->intended(route('admin.dashboard', absolute: false));
+        }
+        return redirect()->intended(route('profile.edit', absolute: false));
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public
+    function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
