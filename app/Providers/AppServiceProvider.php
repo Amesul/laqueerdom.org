@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -23,11 +24,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::preventLazyLoading();
 
-        Gate::define('administrate', function ($user) {
+        Gate::define('administrate', function (User $user) {
            return $user->hasRole('admin');
         });
 
-        Gate::define('perform', function ($user) {
+        Gate::define('edit', function (User $user) {
+            return $user->hasRole('staff');
+        });
+
+        Gate::define('perform', function (User $user) {
           return $user->hasRole('artist');
         });
 
