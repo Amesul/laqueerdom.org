@@ -21,14 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Model::preventLazyLoading(true);
+        Model::preventLazyLoading();
 
         Gate::define('administrate', function ($user) {
-            return $user->hasRole('admin');
+           return $user->hasRole('admin');
         });
 
         Gate::define('perform', function ($user) {
-            return $user->hasRole('artist');
+          return $user->hasRole('artist');
         });
 
         // Gate::define('volunteer', function ($user) {
