@@ -5,6 +5,8 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <input type="hidden" name="redirect-route" value="{{ $redirectRoute }}">
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
