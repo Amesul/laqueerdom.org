@@ -16,7 +16,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        $redirectRoute = request()->get('redirect-route');
+        return view('auth.login', ['redirectRoute' => $redirectRoute]);
     }
 
     /**
@@ -28,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route(route($request->get('redirect-route')), absolute: false));
     }
 
     /**
