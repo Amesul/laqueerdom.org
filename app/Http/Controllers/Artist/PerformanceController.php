@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Artist;
 
+use App\Http\Controllers\Controller;
 use App\Models\Performance;
 use Illuminate\Http\Request;
 
