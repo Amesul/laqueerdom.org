@@ -16,9 +16,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(Request $request): View
     {
-
         $redirection = $request->get('redirection') ?? null;
-
         return view('auth.login', ['redirection' => $redirection]);
     }
 
@@ -28,14 +26,12 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-        if ($request->get('redirection') === 'admin') {
-            return redirect()->route('admin.dashboard');
-
-        } elseif ($request->get('redirection') === 'artist') {
+        if ($request->get('redirection') === 'artist') {
             return redirect()->route('artist.dashboard');
+        } elseif ($request->get('redirection') === 'admin') {
+            return redirect()->route('admin.dashboard');
         }
         return redirect()->route('profile.edit');
     }
