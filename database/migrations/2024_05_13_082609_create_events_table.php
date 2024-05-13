@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::table('event_user', function (Blueprint $table) {
+        Schema::create('event_user', function (Blueprint $table) {
             $table->primary(['event_id', 'user_id']);
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Event::class)->constrained()->onDelete('cascade');
