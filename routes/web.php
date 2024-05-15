@@ -1,15 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\ShowController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VenueController;
 use App\Http\Controllers\Artist\EventUserController;
 use App\Http\Controllers\Artist\PerformanceController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\ShowController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
