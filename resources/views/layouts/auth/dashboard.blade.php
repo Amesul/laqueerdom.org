@@ -1,7 +1,7 @@
 @php $user = Illuminate\Support\Facades\Auth::user() @endphp
 @props([
     'tilte' => null,
-    'breadcrumbs' => [],
+    'breadcrumbs' => null,
 ])
     <!DOCTYPE html>
 <html lang="fr" class="h-full bg-primary">
@@ -153,10 +153,11 @@
             </div>
         </div>
     </nav>
-
-    <header class="hidden md:block">
-        <x-dashboard.breadcrumbs :breadcrumbs="$breadcrumbs"/>
-    </header>
+    @isset($breadcrumbs)
+        <header class="hidden md:block">
+            <x-dashboard.breadcrumbs :breadcrumbs="$breadcrumbs"/>
+        </header>
+    @endisset
     <main>
         <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
             <!-- Your content -->

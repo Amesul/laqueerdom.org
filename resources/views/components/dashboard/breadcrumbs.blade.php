@@ -1,5 +1,5 @@
 @props(['breadcrumbs'])
-<nav class="flex h-12 bg-white shadow-xl" aria-label="Breadcrumb">
+<nav class="flex h-10 bg-white shadow-xl" aria-label="Breadcrumb">
     <ol role="list" class="mx-auto flex w-full max-w-screen-xl px-4 space-x-4 sm:px-6 lg:px-8">
         <li class="flex">
             <div class="flex items-center">
@@ -16,11 +16,12 @@
         @foreach($breadcrumbs as [$link, $name])
             <li class="flex">
                 <div class="flex items-center">
-                    <svg class="h-full w-6 flex-shrink-0 text-secondary-200" viewBox="0 0 24 44" preserveAspectRatio="none"
-                         fill="currentColor" aria-hidden="true">
+                    <svg class="h-full w-6 flex-shrink-0 text-secondary-200" viewBox="0 0 24 44"
+                         preserveAspectRatio="none" fill="currentColor" aria-hidden="true">
                         <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z"/>
                     </svg>
-                    <a href="{{ $link }}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">{{ $name }}</a>
+                    <a href="{{ $link }}"
+                       class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">{{ $name }}</a>
                 </div>
             </li>
         @endforeach
