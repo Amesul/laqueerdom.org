@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VenueController;
 use App\Http\Controllers\Artist\EventUserController;
 use App\Http\Controllers\Artist\PerformanceController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\SettingsController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -23,16 +24,17 @@ Route::domain('artiste.' . config('app.domain'))->name('artist.')->middleware('a
 Route::domain('admin.' . config('app.domain'))->middleware('auth')->name('admin.')->group(function () {
     Route::view('/dashboard', 'admin.dashboard')->name('dashboard')->middleware(['can:edit', 'can:administrate']);
 
-    Route::middleware('can:edit')->group(function () {
+    Route::middleware(['can:edit', 'can:administrate'])->group(function () {
         Route::resource('events', EventController::class)->only('index', 'edit', 'update');
         Route::resource('venues', VenueController::class)->only('index', 'edit', 'update');
-        Route::resource('users', UserController::class)->only(['index', 'update']);
+        Route::resource('documents', DocumentController::class);
+        Route::resource('users', UserController::class)->only('index');
     });
 
     Route::middleware('can:administrate')->group(function () {
         Route::resource('events', EventController::class)->except('index', 'edit', 'update');
         Route::resource('venues', VenueController::class)->except('index', 'edit', 'update');
-        Route::resource('users', UserController::class)->only(['destroy']);
+        Route::resource('users', UserController::class)->only(['update', 'destroy']);
     });
 });
 
