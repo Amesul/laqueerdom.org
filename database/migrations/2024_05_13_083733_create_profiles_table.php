@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
             $table->string('pseudo')->nullable();
+            $table->string('pronouns', '16')->nullable();
             $table->string('biography')->nullable();
             $table->string('link')->nullable();
             $table->string('job')->nullable();
