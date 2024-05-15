@@ -10,6 +10,7 @@
 
     <!-- Scripts -->
     @vite(['resources/js/app.js', 'resources/css/app.css'])
+    <x-tinymce.config/>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
