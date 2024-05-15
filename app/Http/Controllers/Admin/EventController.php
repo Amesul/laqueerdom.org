@@ -10,50 +10,54 @@ class EventController extends Controller
 {
     public function index()
     {
-        return Event::all();
+        return view('admin.event.index', [
+            'events' => Event::orderBy('date')->get(),
+        ]);
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'venue_id' => ['required', 'exists:venues'],
-            'title' => ['required'],
-            'description' => ['required'],
-            'date' => ['required', 'date'],
-            'price' => ['required', 'integer'],
-            'thumbnail' => ['required'],
-            'type' => ['required'],
-        ]);
+        $attributes = $this->validateRequest($request);
 
-        return Event::create($data);
+        Event::create($attributes);
+
+        return back()->with('success', 'Événement créé avec succès.');
     }
 
     public function show(Event $event)
     {
-        return $event;
+        return view('admin.event.show', ['event' => $event]);
     }
 
     public function update(Request $request, Event $event)
     {
-        $data = $request->validate([
-            'venue_id' => ['required', 'exists:venues'],
-            'title' => ['required'],
-            'description' => ['required'],
-            'date' => ['required', 'date'],
-            'price' => ['required', 'integer'],
-            'thumbnail' => ['required'],
-            'type' => ['required'],
-        ]);
+        $attributes = $this->validateRequest($request);
 
-        $event->update($data);
+        $event->update($attributes);
+        return back()->with('success', 'Événement modifié avec succès.');
 
-        return $event;
     }
 
     public function destroy(Event $event)
     {
         $event->delete();
+        return redirect(route('admin.events.index'))->with('danger', 'Événement supprimé.');
+    }
 
-        return response()->json();
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function validateRequest(Request $request): array
+    {
+        return $request->validate([
+            'venue_id' => ['required', 'exists:venues'],
+            'title' => ['required'],
+            'description' => ['nullable', 'string'],
+            'date' => ['required', 'datetime'],
+            'price' => ['nullable', 'integer'],
+            'thumbnail' => ['nullable'],
+            'type' => ['required', 'string'],
+        ]);
     }
 }

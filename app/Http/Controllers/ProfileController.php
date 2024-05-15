@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    /**
+     * @return RedirectResponse
+     */
     public function __invoke(): RedirectResponse
     {
         $profile = request()->user()->profile;

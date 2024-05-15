@@ -10,7 +10,7 @@ class VenueController extends Controller
 {
     public function index()
     {
-        return Venue::all();
+        return view('admin.venue.index', ['venues' => Venue::all()]);
     }
 
     public function store(Request $request)
