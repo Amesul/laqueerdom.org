@@ -10,6 +10,9 @@ class Performance extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'user_id',
         'event_id',
@@ -22,11 +25,17 @@ class Performance extends Model
         'sort',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);

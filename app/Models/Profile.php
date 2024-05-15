@@ -10,6 +10,9 @@ class Profile extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'user_id',
         'pseudo',
@@ -20,6 +23,9 @@ class Profile extends Model
         'profile_picture',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
+
 class PrivacyController extends Controller
 {
-    public function __invoke()
+    /**
+     * @return RedirectResponse
+     */
+    public function __invoke(): RedirectResponse
     {
         request()->user()->update(request()->validate([
             'privacy' => 'string|required'
