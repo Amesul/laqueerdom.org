@@ -21,8 +21,11 @@ class SettingsController extends Controller
         ]);
     }
 
+
     /**
-     * Update the user's profile information.
+     * @param ProfileUpdateRequest $request
+     * @return RedirectResponse
+     * Update user's informations.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
@@ -37,7 +40,10 @@ class SettingsController extends Controller
         return Redirect::route('profile.edit')->with('success', 'Informations modifiées.');
     }
 
+
     /**
+     * @param Request $request
+     * @return RedirectResponse
      * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse

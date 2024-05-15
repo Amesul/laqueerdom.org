@@ -43,26 +43,52 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function events(): BelongsToMany
     {
         return $this->belongsToMany(Event::class);
     }
 
+    /**
+     * @return HasMany
+     * Get user's documents
+     */
     public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
     }
 
+    /**
+     * @return HasMany
+     * Get user's performances
+     */
+    public function performances(): HasMany
+    {
+        return $this->hasMany(Performance::class);
+    }
+
+    /**
+     * @return HasOne
+     */
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }
 
+    /**
+     * @param string $role
+     * @return bool
+     */
     public function hasRole(string $role): bool
     {
         return $this->roles()->where('slug', '=', $role)->exists();
