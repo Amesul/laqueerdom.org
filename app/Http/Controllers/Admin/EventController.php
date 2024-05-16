@@ -19,6 +19,7 @@ class EventController extends Controller
     {
         return view('admin.event.create');
     }
+
     public function store(Request $request)
     {
         $attributes = $this->validateRequest($request);
