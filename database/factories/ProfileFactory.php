@@ -13,8 +13,11 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-
             'user_id' => User::factory(),
+
+            'pseudo' => $this->faker->name(),
+            'link' => $this->faker->url(),
+            'pronouns' => $this->faker->randomElement(['il/lui', 'iel/ellui', 'elle', 'iel/il', 'iel/elle']),
         ];
     }
 }

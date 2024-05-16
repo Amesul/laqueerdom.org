@@ -14,9 +14,9 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->word(),
+            'title' => $this->faker->sentence(4),
             'description' => $this->faker->text(),
-            'date' => Carbon::now(),
+            'date' => fake()->dateTimeBetween('-2 years', '+1 years'),
             'price' => $this->faker->randomNumber(),
             'thumbnail' => $this->faker->word(),
             'type' => $this->faker->word(),

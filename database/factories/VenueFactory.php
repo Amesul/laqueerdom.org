@@ -13,7 +13,7 @@ class VenueFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'address' => $this->faker->address(),
+            'address' => $this->faker->streetAddress(),
             'zip_code' => $this->faker->postcode(),
             'city' => $this->faker->city(),
             'country' => $this->faker->country(),
