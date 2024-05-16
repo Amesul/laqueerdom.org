@@ -11,10 +11,14 @@ class EventController extends Controller
     public function index()
     {
         return view('admin.event.index', [
-            'events' => Event::orderBy('date')->get(),
+            'events' => Event::with('venue')->orderBy('date')->get(),
         ]);
     }
 
+    public function create()
+    {
+        return view('admin.event.create');
+    }
     public function store(Request $request)
     {
         $attributes = $this->validateRequest($request);
@@ -24,9 +28,9 @@ class EventController extends Controller
         return back()->with('success', 'Événement créé avec succès.');
     }
 
-    public function show(Event $event)
+    public function edit(Event $event)
     {
-        return view('admin.event.show', ['event' => $event]);
+        return view('admin.event.edit', ['event' => $event]);
     }
 
     public function update(Request $request, Event $event)
