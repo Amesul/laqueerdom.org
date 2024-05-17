@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->integer('price')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('type');
+            $table->boolean('published')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
