@@ -79,7 +79,6 @@ class EventController extends Controller
 
         $event->update($attributes);
         return back()->with('success', 'Événement modifié avec succès.');
-
     }
 
     /**
