@@ -11,15 +11,17 @@ return new class extends Migration {
     {
         Schema::create('performances', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained('users');
-            $table->foreignIdFor(Event::class)->constrained('events');
+            $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
+            $table->foreignIdFor(Event::class)->nullable();
+            $table->string('slug');
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('stage_requirements')->nullable();
             $table->text('others')->nullable();
             $table->time('duration')->nullable();
             $table->string('file')->nullable();
-            $table->integer('order')->nullable();
+            $table->integer('order')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

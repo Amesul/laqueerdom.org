@@ -12,13 +12,15 @@ return new class extends Migration {
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Venue::class)->constrained('venues');
+            $table->foreignIdFor(Venue::class)->constrained('venues')->restrictOnDelete();
+            $table->string('slug')->unique();
             $table->string('title');
-            $table->text('description');
             $table->dateTime('date');
-            $table->integer('price');
-            $table->string('thumbnail');
+            $table->text('description')->nullable();
+            $table->integer('price')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->string('type');
+            $table->softDeletes();
             $table->timestamps();
         });
 

@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->string('slug');
             $table->string('title');
             $table->longText('content');
             $table->string('type');
