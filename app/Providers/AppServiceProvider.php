@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -22,10 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Carbon::setLocale(config('app.locale'));
+
         Model::preventLazyLoading();
 
         Gate::define('administrate', function (User $user) {
-           return $user->hasRole('admin');
+            return $user->hasRole('admin');
         });
 
         Gate::define('edit', function (User $user) {
@@ -33,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('perform', function (User $user) {
-          return $user->hasRole('artist');
+            return $user->hasRole('artist');
         });
 
         // Gate::define('volunteer', function ($user) {
