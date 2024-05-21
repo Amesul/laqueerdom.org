@@ -42,7 +42,6 @@ class Event extends Model
     {
         return [
             'date' => 'datetime',
-            'published' => 'boolean'
         ];
     }
 }
