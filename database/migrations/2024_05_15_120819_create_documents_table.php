@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->foreignId('user_id');
             $table->string('slug');
             $table->string('title');
-            $table->longText('content');
+            $table->longText('content')->nullable();
             $table->string('type');
             $table->softDeletes();
             $table->timestamps();
