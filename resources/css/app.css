@@ -6,3 +6,34 @@
     background: url('../svg/mesh.svg') no-repeat fixed top left;
     background-size: cover;
 }
+
+.formatted-input {
+    h1, h2 {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        text-transform: uppercase;
+    }
+
+    h1:not(:last-child), h2:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    h1:not(:first-child), h2:not(:first-child) {
+        margin-top: 2rem;
+    }
+
+    p:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    em {
+        font-style: italic;
+    }
+}
