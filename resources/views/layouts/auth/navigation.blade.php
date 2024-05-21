@@ -55,7 +55,7 @@
                                 @else
                                     <div
                                         class="grid h-8 w-8 px-2 items-center truncate rounded-full text-center text-xs font-bold text-primary bg-accent">
-                                        {{ substr($user->name, 0, 2) }}
+                                        {{ mb_substr($user->name, 0, 2) }}
                                     </div>
                                 @endif
                             </button>
