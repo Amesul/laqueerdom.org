@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\ShowController;
@@ -29,17 +30,29 @@ Route::domain('admin.' . config('app.domain'))->middleware('auth')->name('admin.
     Route::view('/dashboard', 'admin.dashboard')->name('dashboard')->middleware(['can:edit', 'can:administrate']);
 
     Route::middleware(['can:edit', 'can:administrate'])->group(function () {
-        Route::resource('events', EventController::class)->only('index', 'edit', 'update');
+        Route::resource('events', EventController::class)->only('index', 'edit', 'update')->parameters([
+            'events' => 'event:slug'
+        ]);;
         Route::resource('venues', VenueController::class)->only('index', 'edit', 'update');
-        Route::resource('shows', ShowController::class)->only('index', 'edit', 'update');
-        Route::resource('documents', DocumentController::class)->only('index', 'edit', 'update');
-        Route::resource('users', UserController::class)->only('index');
+        Route::resource('shows', ShowController::class)->only('index', 'edit', 'update')->parameters([
+            'events' => 'event:slug'
+        ]);;
+        Route::resource('documents', DocumentController::class)->parameters([
+            'documents' => 'document:slug'
+        ]);
+        Route::resource('comments', CommentController::class)->only('store', 'destroy');
     });
 
     Route::middleware('can:administrate')->group(function () {
-        Route::resource('events', EventController::class)->except('show', 'index', 'edit', 'update');
-        Route::resource('venues', VenueController::class)->except('show', 'index', 'edit', 'update');
-        Route::resource('users', UserController::class)->only(['update', 'destroy']);
+        Route::resource('events', EventController::class)->except('show', 'index', 'edit', 'update')->parameters([
+            "events" => "event:slug"
+        ]);
+        Route::resource('venues', VenueController::class)->except('show', 'index', 'edit', 'update')->parameters([
+            "venues" => "venue:slug"
+        ]);
+        Route::resource('users', UserController::class)->only(['index', 'update', 'destroy'])->parameters([
+            "users" => "user:username"
+        ]);
     });
 });
 
@@ -57,6 +70,7 @@ Route::domain(config('app.domain'))->middleware('auth')->group(function () {
 Route::domain(config('app.domain'))->group(function () {
     Route::view('/', 'public.welcome')->name('home');
     Route::view('/agenda', 'public.agenda')->name('agenda');
+    Route::view('/agenda/{event:slug}', 'public.agenda-show')->name('agenda.show');
     Route::view('/about', 'public.about')->name('about');
     Route::view('/about/team', 'public.team')->name('about.team');
     Route::view('/about/artists', 'public.artists-index')->name('about.artists');
