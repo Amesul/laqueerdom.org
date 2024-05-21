@@ -32,7 +32,6 @@ class VenueController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|Application|RedirectResponse|Redirector
      * Create a record in the venues table
      */
@@ -46,8 +45,16 @@ class VenueController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param Venue $venue
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Application|View
+     * Return the view to edit the specified Venue
+     */
+    public function edit(Venue $venue)
+    {
+        return view('admin.venue.edit', ['venue' => $venue]);
+    }
+
+    /**
      * @return RedirectResponse
      * Update specified record in the venues table
      */
@@ -61,7 +68,6 @@ class VenueController extends Controller
     }
 
     /**
-     * @param Venue $venue
      * @return \Illuminate\Contracts\Foundation\Application|Application|RedirectResponse|Redirector
      * Delete specified record in the venues table
      */
@@ -73,7 +79,6 @@ class VenueController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return array
      * Validate Venue form request
      */
