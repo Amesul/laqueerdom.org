@@ -19,7 +19,7 @@ class VenueController extends Controller
      */
     public function index()
     {
-        return view('admin.venue.index', ['venues' => Venue::all()]);
+        return view('admin.venue.index', ['venues' => Venue::orderBy('name')->get()]);
     }
 
     /**
@@ -41,7 +41,7 @@ class VenueController extends Controller
 
         Venue::create($attributes);
 
-        return redirect(route('admin.venue.index'))->with('success', 'Structures créé avec succès.');
+        return redirect(route('admin.venues.index'))->with('success', 'Structures créé avec succès.');
     }
 
     /**
