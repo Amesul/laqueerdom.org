@@ -1,29 +1,36 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@php $user = \Illuminate\Support\Facades\Auth::user(); $partial = $_REQUEST['partial'] ?? 'user'; @endphp
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+<x-dashboard-layout>
+    <x-slot:title>Réglages</x-slot:title>
+    <div class="max-w-7xl mx-auto space-y-6">
+        @if($partial === 'user')
+            <x-glassmorphism class="p-8">
                 <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
+                    @include('profile.partials.update-user-information-form')
                 </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            </x-glassmorphism>
+        @elseif($partial === 'security')
+            <x-glassmorphism class="p-8">
                 <div class="max-w-xl">
                     @include('profile.partials.update-password-form')
                 </div>
-            </div>
+            </x-glassmorphism>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <x-glassmorphism class="p-8">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>
-            </div>
-        </div>
+            </x-glassmorphism>
+        @elseif($partial === 'profile')
+            <x-glassmorphism class="p-8">
+                @include('profile.partials.update-profile-information-form')
+            </x-glassmorphism>
+        @elseif($partial === 'privacy')
+            <x-glassmorphism class="p-8">
+                <div class="max-w-xl">
+                    @include('profile.partials.update-user-privacy-form')
+                </div>
+            </x-glassmorphism>
+        @endif
     </div>
-</x-app-layout>
+</x-dashboard-layout>

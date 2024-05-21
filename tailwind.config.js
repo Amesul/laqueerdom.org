@@ -7,43 +7,37 @@ export default {
     theme: {
         extend: {
             colors: {
-                'secondary': {
-                    DEFAULT: '#030b14',
-                    900: '#030b14',
-                    800: '#353c43',
-                    700: '#4f545b',
-                    600: '#686d72',
-                    500: '#81858a',
-                    400: '#9a9da1',
-                    300: '#b3b6b9',
-                    200: '#cdced0',
-                    100: '#e6e7e8'
-                }, 'primary': {
-                    DEFAULT: '#fbf8f3',
-                    900: '#323231',
-                    800: '#4b4a49',
-                    700: '#646361',
-                    600: '#7e7c7a',
-                    500: '#979592',
-                    400: '#b0aeaa',
-                    300: '#c9c6c2',
-                    200: '#e2dfdb',
-                    100: '#fbf8f3'
+                'primary': {
+                    DEFAULT: '#25132a',
+                    950: '#190d1c',
+                    900: '#25132A',
+                    800: '#321938',
+                    700: '#4B2654',
+                    600: '#643371',
+                    500: '#7C3F8D',
+                    400: '#9F56B3',
+                    300: '#AF72C0',
+                    200: '#BF8ECC',
+                    100: '#D7B9DF',
+                    50: '#EEE2F3'
+                }, 'secondary': {
+                    DEFAULT: '#F2F3F4',
+                    100: '#F2F3F4'
                 }, 'accent': {
-                    DEFAULT: '#ef53a2',
-                    950: '#782a51',
-                    900: '#8f3261',
-                    800: '#a73a71',
-                    700: '#bf4282',
-                    600: '#d74b92',
-                    500: '#ef53a2',
-                    400: '#f275b5',
-                    300: '#f598c7',
-                    200: '#f9bada',
-                    100: '#fdeef6'
+                    DEFAULT: '#FF7F50',
+                    900: '#B83100',
+                    800: '#F54100',
+                    700: '#FF5A1F',
+                    600: '#FF6933',
+                    500: '#FF7F50',
+                    400: '#FF9670',
+                    300: '#FFA585',
+                    200: '#FFB499',
+                    100: '#FFD2C2',
+                    50: '#FFF0EB'
                 }
             }, fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Quicksand', ...defaultTheme.fontFamily.sans],
             },
         },
     },

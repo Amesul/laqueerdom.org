@@ -4,12 +4,12 @@
     'quickAction',
 ])
 
-<nav class="bg-secondary " x-data="{openMobileMenu: false}">
+<nav class="bg-secondary border-b border-primary/10 shadow-lg relative z-50" x-data="{openMobileMenu: false}">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=pink&shade=400"
+                    <img class="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=gray&shade=900"
                          alt="Your Company">
                 </div>
                 <div class="hidden lg:block">
@@ -31,7 +31,7 @@
             <div class="hidden lg:block">
                 <div class="ml-4 flex items-center md:ml-6">
                     <button type="button"
-                            class="relative rounded-full p-1 transition-all bg-secondary text-primary-300 hover:text-primary focus:ring-primary focus:ring-offset-secondary focus:outline-none focus:ring-2 focus:ring-offset-2">
+                            class="relative rounded-full p-1 transition-all bg-secondary text-slate-500 hover:text-primary-600 focus:ring-primary focus:ring-offset-secondary focus:outline-none focus:ring-2 focus:ring-offset-2">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">Voir les notifications</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
