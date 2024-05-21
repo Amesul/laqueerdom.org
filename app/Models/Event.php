@@ -10,24 +10,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * @var string[]
      */
-    protected $fillable = [
-        'venue_id',
-        'slug',
-        'title',
-        'description',
-        'date',
-        'price',
-        'thumbnail',
-        'type',
-    ];
+    protected $guarded = [];
 
     /**
      * @return BelongsToMany
+     * Get all Users associated with this Event
      */
     public function users(): BelongsToMany
     {
@@ -36,6 +28,7 @@ class Event extends Model
 
     /**
      * @return BelongsTo
+     * Get the Venue associated with this Event
      */
     public function venue(): BelongsTo
     {
@@ -49,6 +42,7 @@ class Event extends Model
     {
         return [
             'date' => 'datetime',
+            'published' => 'boolean'
         ];
     }
 }
