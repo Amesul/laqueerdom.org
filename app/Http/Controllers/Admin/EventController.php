@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Show;
 use App\Models\Venue;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
@@ -27,16 +28,6 @@ class EventController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Application|View
-     */
-    public function create()
-    {
-        return view('admin.event.create', [
-            'venues' => Venue::orderBy('name')->get(),
-        ]);
-    }
-
-    /**
      * @param Request $request
      * @return RedirectResponse
      */
@@ -44,9 +35,52 @@ class EventController extends Controller
     {
         $attributes = $this->validateRequest($request);
 
-        Event::create($attributes);
+        $event = Event::create($attributes);
+
+        if ($attributes['type'] === 'show') {
+            Show::create([
+                'event_id' => $event->id,
+                'applications_open' => false,
+            ]);
+        }
 
         return redirect(route('admin.events.index'))->with('success', 'Événement créé avec succès.');
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function validateRequest(Request $request): array
+    {
+        $attributes = $request->validate([
+            'venue_id' => ['required', 'exists:venues,id'],
+            'title' => ['required'],
+            'description' => ['nullable', 'string'],
+            'date' => ['required', 'date'],
+            'price' => ['nullable', 'integer'],
+            'thumbnail' => ['nullable'],
+            'type' => ['required', 'string'],
+        ]);
+
+        $attributes['slug'] = Str::slug($attributes['title']);
+
+        if ($request->hasFile('thumbnail')) {
+            $thumbnailPath = $request->file('thumbnail')->store('thumbnails');
+            $attributes['thumbnail'] = $thumbnailPath;
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Application|View
+     */
+    public function create()
+    {
+        return view('admin.event.create', [
+            'venues' => Venue::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -77,6 +111,13 @@ class EventController extends Controller
         // Prevent update on type column
         $attributes['type'] = $event->type;
 
+        if ($attributes['type'] === 'show') {
+            Show::create([
+                'event_id' => $event->id,
+                'applications_open' => false,
+            ]);
+        }
+
         $event->update($attributes);
         return back()->with('success', 'Événement modifié avec succès.');
     }
@@ -89,31 +130,5 @@ class EventController extends Controller
     {
         $event->delete();
         return redirect(route('admin.events.index'))->with('danger', 'Événement supprimé.');
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function validateRequest(Request $request): array
-    {
-        $attributes = $request->validate([
-            'venue_id' => ['required', 'exists:venues,id'],
-            'title' => ['required'],
-            'description' => ['nullable', 'string'],
-            'date' => ['required', 'date'],
-            'price' => ['nullable', 'integer'],
-            'thumbnail' => ['nullable'],
-            'type' => ['required', 'string'],
-        ]);
-
-        $attributes['slug'] = Str::slug($attributes['title']);
-
-        if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('thumbnails');
-            $attributes['thumbnail'] = $thumbnailPath;
-        }
-
-        return $attributes;
     }
 }
