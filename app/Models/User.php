@@ -30,28 +30,6 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token',];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'phone' => E164PhoneNumberCast::class,
-        ];
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
-    /**
      * @return BelongsToMany
      */
     public function events(): BelongsToMany
@@ -92,5 +70,27 @@ class User extends Authenticatable
     public function hasRole(string $role): bool
     {
         return $this->roles()->where('slug', '=', $role)->exists();
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'phone' => E164PhoneNumberCast::class,
+        ];
     }
 }
