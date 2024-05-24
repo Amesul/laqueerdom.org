@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Event;
+use App\Models\Show;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,7 +12,7 @@ return new class extends Migration {
         Schema::create('performances', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
-            $table->foreignIdFor(Event::class)->nullable();
+            $table->foreignIdFor(Show::class)->constrained('shows')->cascadeOnDelete();
             $table->string('slug');
             $table->string('title');
             $table->text('description')->nullable();
