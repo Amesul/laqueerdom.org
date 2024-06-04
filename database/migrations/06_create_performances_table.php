@@ -13,8 +13,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
             $table->foreignIdFor(Show::class)->constrained('shows')->cascadeOnDelete();
-            $table->string('slug');
-            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('title')->default('Performance vierge');
             $table->text('description')->nullable();
             $table->text('stage_requirements')->nullable();
             $table->text('others')->nullable();

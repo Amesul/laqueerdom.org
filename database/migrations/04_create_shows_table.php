@@ -11,7 +11,7 @@ return new class extends Migration {
         Schema::create('shows', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Event::class)->unique()->constrained()->cascadeOnDelete();
-            $table->date('deadline');
+            $table->dateTime('deadline');
             $table->boolean('applications_open')->default(false);
             $table->timestamps();
         });
