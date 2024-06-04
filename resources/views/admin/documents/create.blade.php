@@ -17,7 +17,10 @@
             <!-- Type -->
             <div class="col-span-full md:col-span-1">
                 <fieldset>
-                    <legend class="block after:content-['*'] after:ml-1 after:text-red-500 font-bold text-sm text-secondary-700 mb-1">Type</legend>
+                    <legend
+                        class="block after:content-['*'] after:ml-1 after:text-red-500 font-bold text-sm text-secondary-700 mb-1">
+                        Type
+                    </legend>
                     <x-radio-button element-name="debriefing" field-name="type">Compte-rendu de réunion</x-radio-button>
                     <x-radio-button element-name="general_assembly" field-name="type">Assemblée générale
                     </x-radio-button>
@@ -31,7 +34,8 @@
             <!-- Content -->
             <div class="col-span-full">
                 <x-input-label for="content" class="sr-only" :value="__('Contenu')"/>
-                <x-tinymce.editor id="content" name="content" type="text" class="mt-1 block w-full resize-y advanced-wysiwyg"
+                <x-tinymce.editor id="content" name="content" type="text"
+                                  class="mt-1 block w-full resize-y advanced-wysiwyg"
                                   :value="old('content')" rows="30" autofocus autocomplete="content"/>
                 <x-input-error :messages="$errors->get('content')"/>
             </div>

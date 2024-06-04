@@ -4,7 +4,7 @@
     'quickAction',
 ])
 
-<nav class="bg-secondary border-b border-primary/10 shadow-lg relative z-50" x-data="{openMobileMenu: false}">
+<nav class="bg-secondary border-b border-primary/10 shadow-lg relative z-40" x-data="{openMobileMenu: false}">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">

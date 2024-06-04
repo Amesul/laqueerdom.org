@@ -1,5 +1,6 @@
+@php use App\Models\Event; @endphp
 @props([
-    /** @var \App\Models\Event */
+    /** @var Event */
     'event'
 ])
 

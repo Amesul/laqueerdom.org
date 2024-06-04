@@ -15,6 +15,7 @@
 
     switch ($width) {
         case '48':
+        default:
             $width = 'w-48';
             break;
         case 'full':
@@ -23,19 +24,19 @@
     }
 @endphp
 
-<div class="relative {{ $width }}" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
+<div class="relative w-fit" x-data="{ open: false }" @close.stop="open = false">
     <div @click="open = ! open">
         {{ $trigger }}
     </div>
 
-    <div x-show="open" @click="open = false"
+    <div x-show="open" @click.outside="open = false"
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 scale-95"
          x-transition:enter-end="opacity-100 scale-100"
          x-transition:leave="transition ease-in duration-75"
          x-transition:leave-start="opacity-100 scale-100"
          x-transition:leave-end="opacity-0 scale-95"
-         class="absolute z-50 mt-2 w-full rounded-md shadow-lg {{ $alignmentClasses }}"
+         class="absolute w-48 z-40 mt-2 rounded-md shadow-lg {{ $alignmentClasses }}"
          style="display: none;">
         <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
             {{ $content }}

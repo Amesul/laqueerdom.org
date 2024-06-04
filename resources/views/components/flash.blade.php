@@ -6,7 +6,7 @@
      x-init="setTimeout(() => show = false, 10_000)"
      x-show="show"
      x-transition.opacity x-transition.duration.700ms
-     class="fixed bottom-8 left-8 z-50 mt-2 flex origin-center items-center gap-4 rounded-xl bg-white px-4 py-2 shadow-xl">
+     class="fixed bottom-8 left-8 z-40 mt-2 flex origin-center items-center gap-4 rounded-xl bg-white px-4 py-2 shadow-xl">
     <div class="grid h-8 w-8 place-content-center rounded-full {{ $color }} text-lg">
         @if($type === 'info')
             <i class="fa-solid fa-circle-info"></i>

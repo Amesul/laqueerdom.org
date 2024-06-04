@@ -85,8 +85,7 @@
                 <!-- Thumbnail -->
                 <div class="col-span-full">
                     <x-input-label for="thumbnail" :value="__('Affiche')"/>
-                    <input id="thumbnail" name="thumbnail" type="file"
-                           class="mt-1 block w-full file:rounded-full file:border-none file:px-3 file:py-1 file:font-bold capitalize file:bg-accent-300 file:text-primary hover:file:bg-accent-500 hover:file:text-primary hover:file:cursor-pointer"/>
+                    <x-file-input id="thumbnail" name="thumbnail"/>
                     <x-input-error :messages="$errors->get('thumbnail')"/>
                 </div>
             </div>

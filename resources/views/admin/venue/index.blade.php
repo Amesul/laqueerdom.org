@@ -2,7 +2,7 @@
     <x-slot:title>Partenaires</x-slot:title>
 
     <x-slot:quick-action>
-        <x-dashboard.quick-action link="{{ route('admin.venues.create') }}" />
+        <x-dashboard.quick-action link="{{ route('admin.venues.create') }}"/>
     </x-slot:quick-action>
 
     <x-glassmorphism role="list" x-data="tabs">

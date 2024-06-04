@@ -21,8 +21,7 @@ export default {
                     100: '#D7B9DF',
                     50: '#EEE2F3'
                 }, 'secondary': {
-                    DEFAULT: '#F2F3F4',
-                    100: '#F2F3F4'
+                    DEFAULT: '#F2F3F4', 100: '#F2F3F4'
                 }, 'accent': {
                     DEFAULT: '#FF7F50',
                     900: '#B83100',
