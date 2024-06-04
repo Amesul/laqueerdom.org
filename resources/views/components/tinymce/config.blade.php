@@ -11,6 +11,16 @@
     });
 
     tinymce.init({
+        selector: '.simple-wysiwyg',
+        plugins: 'wordcount',
+        content_style: '@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"); body { font-family: "Quicksand", sans-serif; font-optical-sizing: auto; }',
+        menubar: false,
+        language: 'fr_FR',
+        height: 300,
+        toolbar: 'bold italic | wordcount'
+    });
+
+    tinymce.init({
         selector: '.advanced-wysiwyg',
         plugins: 'code lists link wordcount autosave searchreplace help autolink preview',
         content_style: '@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"); body { font-family: "Quicksand", sans-serif; font-optical-sizing: auto; }',
