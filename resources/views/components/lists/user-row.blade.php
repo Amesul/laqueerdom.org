@@ -4,15 +4,7 @@
 ])
 <li class="flex justify-between gap-x-6 py-5">
     <div class="flex min-w-0 gap-x-4">
-        @if(isset($user->profile->profile_picture))
-            <img src="{{ asset($user->profile->profile_picture) }}" alt="Photo de profil"
-                 class="h-12 w-12 flex-none rounded-full bg-gray-50 object-cover">
-        @else
-            <div
-                class="grid h-12 w-12 px-2 items-center truncate rounded-full text-center text-xs font-bold text-primary bg-accent-200">
-                {{ mb_substr($user->name, 0, 3) }}
-            </div>
-        @endif
+        <x-profile-picture :user="$user" class="w-12 h-12"/>
         <div class="min-w-0 flex-auto">
             <p class="font-semibold leading-6 text-primary-900">{{ $user->name }}</p>
             <p class="mt-1 truncate text-xs leading-5 text-slate-500">{{ $user->username }}</p>
