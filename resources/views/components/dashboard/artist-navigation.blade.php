@@ -1,4 +1,4 @@
-<x-dashboard.nav-link href="{{ route('admin.dashboard') }}"
+<x-dashboard.nav-link href="{{ route('artist.dashboard') }}"
                       :active="request()->is('dashboard')">Dashboard
 </x-dashboard.nav-link>
 
@@ -6,8 +6,8 @@
     Performances
 </x-dashboard.nav-link>
 
-<x-dashboard.nav-link href="{{ route('artist.events.index') }}" :active="request()->is('events')">
-    Événements
+<x-dashboard.nav-link href="{{ route('artist.applications.index') }}" :active="request()->is('applications')">
+    Candidatures
 </x-dashboard.nav-link>
 
 <x-dashboard.nav-link href="{{ route('artist.directory') }}" :active="request()->is('directory')">
