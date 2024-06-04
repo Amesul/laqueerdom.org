@@ -15,7 +15,7 @@ class UserController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Application|View
      */
-    public function index()
+    public function index(): Application|\Illuminate\Contracts\View\View|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.user.index', ['users' => User::with(['profile', 'roles'])->orderBy('username')->get()]);
     }
@@ -25,7 +25,7 @@ class UserController extends Controller
      * @param User $user
      * @return RedirectResponse
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): RedirectResponse
     {
         $attributes = $request->validate([
             'add_roles' => 'nullable',

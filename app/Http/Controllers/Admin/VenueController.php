@@ -13,29 +13,17 @@ use Illuminate\View\View;
 
 class VenueController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Application|View
-     * Show all the records in the venues table
-     */
-    public function index()
+    public function index(): Application|\Illuminate\Contracts\View\View|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.venue.index', ['venues' => Venue::orderBy('name')->get()]);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Application|View
-     * Return the view to create a Venue
-     */
-    public function create()
+    public function create(): Application|\Illuminate\Contracts\View\View|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.venue.create');
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|Application|RedirectResponse|Redirector
-     * Create a record in the venues table
-     */
-    public function store(Request $request)
+    public function store(Request $request): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $attributes = $this->validateRequest($request);
 
@@ -44,21 +32,12 @@ class VenueController extends Controller
         return redirect(route('admin.venues.index'))->with('success', 'Structures créé avec succès.');
     }
 
-    /**
-     * @param Venue $venue
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Application|View
-     * Return the view to edit the specified Venue
-     */
-    public function edit(Venue $venue)
+    public function edit(Venue $venue): Application|\Illuminate\Contracts\View\View|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.venue.edit', ['venue' => $venue]);
     }
 
-    /**
-     * @return RedirectResponse
-     * Update specified record in the venues table
-     */
-    public function update(Request $request, Venue $venue)
+    public function update(Request $request, Venue $venue): RedirectResponse
     {
         $attributes = $this->validateRequest($request);
 
@@ -67,21 +46,13 @@ class VenueController extends Controller
         return back()->with('success', 'Structure modifiée avec succès.');
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|Application|RedirectResponse|Redirector
-     * Delete specified record in the venues table
-     */
-    public function destroy(Venue $venue)
+    public function destroy(Venue $venue): Application|Redirector|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         $venue->delete();
 
         return redirect(route('admin.venues.index'))->with('danger', 'Structure supprimée');
     }
 
-    /**
-     * @return array
-     * Validate Venue form request
-     */
     public function validateRequest(Request $request): array
     {
         return $request->validate([

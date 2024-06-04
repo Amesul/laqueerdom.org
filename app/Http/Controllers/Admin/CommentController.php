@@ -13,7 +13,7 @@ class CommentController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $attributes = $request->validate([
             'message' => ['required', 'max:300', 'string'],
@@ -31,7 +31,7 @@ class CommentController extends Controller
      * @return RedirectResponse
      * Delete specified comment
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment): RedirectResponse
     {
         $comment->delete();
 

@@ -1,12 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\CommentController;
-use App\Http\Controllers\Admin\DocumentController;
-use App\Http\Controllers\Admin\EventController;
-use App\Http\Controllers\Admin\ShowController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\VenueController;
-use App\Http\Controllers\Artist\EventUserController;
+use App\Http\Controllers\Artist\ApplicationController;
+use App\Http\Controllers\Artist\ArtistShowController;
 use App\Http\Controllers\Artist\PerformanceController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProfileController;
@@ -15,46 +10,20 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 // ARTIST ROUTER
-Route::domain('artiste.' . config('app.domain'))->name('artist.')->middleware('auth')->group(function () {
-    Route::middleware('can:perform')->group(function () {
-        Route::view('/dashboard', 'artist.dashboard')->name('dashboard');
-        Route::view('/directory', 'artist.directory', ['users' => User::all()]);
-        Route::resource('performances', PerformanceController::class);
-        Route::resource('events', EventUserController::class)->only('index', 'show');
-        Route::view('/directory', 'artist.directory', ['users' => User::all()])->name('directory');
+Route::domain('artiste.' . config('app.domain'))->name('artist.')->middleware('can:perform')->group(function () {
+    Route::view('/dashboard', 'artist.dashboard')->name('dashboard');
+    Route::resource('performances', PerformanceController::class)->only('index', 'edit', 'update')->parameters([
+        'performances' => 'performance:slug'
+    ]);
+    Route::resource('applications', ApplicationController::class)->only('index', 'show', 'create', 'store');
+    Route::controller(ArtistShowController::class)->group(function () {
+        Route::get('/applications/shows/open', 'index')->name('shows.open.index');
+        Route::get('/applications/shows/open/{event:slug}', 'show')->name('shows.open.show');
     });
+    Route::view('/directory', 'artist.directory', ['users' => User::all()])->name('directory');
 });
 
-// ADMIN ROUTER
-Route::domain('admin.' . config('app.domain'))->middleware('auth')->name('admin.')->group(function () {
-    Route::view('/dashboard', 'admin.dashboard')->name('dashboard')->middleware(['can:edit', 'can:administrate']);
-
-    Route::middleware(['can:edit', 'can:administrate'])->group(function () {
-        Route::resource('events', EventController::class)->only('index', 'edit', 'update')->parameters([
-            'events' => 'event:slug'
-        ]);;
-        Route::resource('venues', VenueController::class)->only('index', 'edit', 'update');
-        Route::resource('shows', ShowController::class)->only('index', 'edit', 'update')->parameters([
-            'events' => 'event:slug'
-        ]);;
-        Route::resource('documents', DocumentController::class)->parameters([
-            'documents' => 'document:slug'
-        ]);
-        Route::resource('comments', CommentController::class)->only('store', 'destroy');
-    });
-
-    Route::middleware('can:administrate')->group(function () {
-        Route::resource('events', EventController::class)->except('show', 'index', 'edit', 'update')->parameters([
-            "events" => "event:slug"
-        ]);
-        Route::resource('venues', VenueController::class)->except('show', 'index', 'edit', 'update')->parameters([
-            "venues" => "venue:slug"
-        ]);
-        Route::resource('users', UserController::class)->only(['index', 'update', 'destroy'])->parameters([
-            "users" => "user:username"
-        ]);
-    });
-});
+require __DIR__ . '/admin.php';
 
 // ACCOUNT ROUTER
 Route::domain(config('app.domain'))->middleware('auth')->group(function () {

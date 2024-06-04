@@ -1,5 +1,6 @@
+@php use App\Models\Event; @endphp
 @props([
-    /** @var \App\Models\Event */
+    /** @var Event */
     'venue'
 ])
 
@@ -43,6 +44,7 @@
                    role="menuitem"
                    tabindex="-1" id="options-menu-0-item-0">Modifier<span
                         class="sr-only">, {{ $venue->title }}</span></a>
+
                 <form action="{{ route('admin.venues.destroy', $venue) }}" method="post"
                       class="block rounded-b-md px-3 py-2 text-sm leading-6 text-secondary-900 hover:bg-red-100">
                     @csrf @method('DELETE')
