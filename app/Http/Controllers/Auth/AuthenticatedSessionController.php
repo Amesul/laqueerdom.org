@@ -16,8 +16,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(Request $request): View
     {
-        $redirection = $request->get('redirection') ?? null;
-        return view('auth.login', ['redirection' => $redirection]);
+        $referer = $request->get('referer') ?? null;
+        return view('auth.login', ['referer' => $referer]);
     }
 
     /**
@@ -28,12 +28,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        if ($request->get('redirection') === 'artist') {
-            return redirect()->route('artist.dashboard');
-        } elseif ($request->get('redirection') === 'admin') {
-            return redirect()->route('admin.dashboard');
-        }
-        return redirect()->route('profile.edit');
+        $referer = $request->get('referer') ?? null;
+        
+        return redirect()->to($referer);
     }
 
     /**
