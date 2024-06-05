@@ -14,7 +14,7 @@ class CommentFactory extends Factory
     public function definition(): array
     {
         return [
-            'message' => $this->faker->word(),
+            'message' => $this->faker->paragraph(),
 
             'user_id' => User::factory(),
             'document_id' => Document::factory(),

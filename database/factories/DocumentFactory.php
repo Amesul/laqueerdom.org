@@ -13,9 +13,10 @@ class DocumentFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->word(),
-            'content' => $this->faker->word(),
-            'type' => $this->faker->word(),
+            'slug' => $this->faker->slug(3),
+            'title' => $this->faker->sentence(5),
+            'content' => $this->faker->text(3000),
+            'type' => $this->faker->randomElement(['report', 'briefing', 'idea']),
 
             'user_id' => User::factory(),
         ];
