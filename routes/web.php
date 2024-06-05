@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Artist\ApplicationController;
-use App\Http\Controllers\Artist\ArtistShowController;
+use App\Http\Controllers\Artist\BookingController;
 use App\Http\Controllers\Artist\PerformanceController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProfileController;
@@ -16,11 +16,13 @@ Route::domain('artiste.' . config('app.domain'))->name('artist.')->middleware('c
         'performances' => 'performance:slug'
     ]);
     Route::resource('applications', ApplicationController::class)->only('index', 'show', 'create', 'store');
-    Route::controller(ArtistShowController::class)->group(function () {
-        Route::get('/applications/shows/open', 'index')->name('shows.open.index');
-        Route::get('/applications/shows/open/{event:slug}', 'show')->name('shows.open.show');
+    Route::controller(BookingController::class)->group(function () {
+        Route::get('/booking', 'index')->name('booking.index');
+        Route::get('/booking/{event:slug}', 'show')->name('booking.show');
     });
-    Route::view('/directory', 'artist.directory', ['users' => User::all()])->name('directory');
+    Route::view('/directory', 'artist.directory', [
+        'users' => User::with('profile', 'roles')->where('privacy', '=', 'public')->orWhere('privacy', '=', 'directory_only')->get(),
+    ])->name('directory');
 });
 
 require __DIR__ . '/admin.php';
@@ -37,14 +39,14 @@ Route::domain(config('app.domain'))->middleware('auth')->group(function () {
 
 // PUBLIC ROUTER
 Route::domain(config('app.domain'))->group(function () {
-    Route::view('/', 'public.welcome')->name('home');
+    Route::view('/', 'public.home')->name('home');
     Route::view('/agenda', 'public.agenda')->name('agenda');
     Route::view('/agenda/{event:slug}', 'public.agenda-show')->name('agenda.show');
     Route::view('/about', 'public.about')->name('about');
     Route::view('/about/team', 'public.team')->name('about.team');
     Route::view('/about/artists', 'public.artists-index')->name('about.artists');
     Route::view('/about/artists/{user:username}', 'public.artists-show')->name('artist.show');
-    Route::view('/about/legal', 'public.legal')->name('legal');
+    Route::view('/about/legal', 'public.legal')->name('about.legal');
     Route::view('/contact', 'public.contact')->name('contact');
 });
 
