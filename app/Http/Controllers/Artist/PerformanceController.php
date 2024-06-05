@@ -9,81 +9,49 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class PerformanceController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View|Application|View
-     */
-    public function index()
+    public function index(): Application|\Illuminate\Contracts\View\View|Factory|View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('artist.performance.index', ['performances' => Auth::user()->performances()]);
+        $user = Auth::user();
+        return view('artist.performance.index', [
+            'user' => $user,
+            'performances' => $user->performances()->with('show.event', 'show.event.venue', 'triggerWarnings'),
+        ]);
     }
 
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function store(Request $request)
-    {
-        $attributes = $this->validateRequest($request);
-
-        $attributes['user_id'] = Auth::id();
-
-        Performance::create($attributes);
-
-        return redirect()->route('artist.performance.index')->with('success', 'Performance créée avec succès.');
-    }
-
-    /**
-     * @param Performance $performance
-     * @return Application|Factory|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\View|View
-     */
-    public function edit(Performance $performance)
+    public function edit(Performance $performance): \Illuminate\Contracts\View\View|Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('artist.performance.edit', ['performance' => $performance]);
     }
 
-    /**
-     * @param Request $request
-     * @param Performance $performance
-     * @return RedirectResponse
-     */
-    public function update(Request $request, Performance $performance)
+    public function update(Request $request, Performance $performance): RedirectResponse
     {
-        $attributes = $this->validateRequest($request);
+        $attributes = $request->validate([
+            'title' => ['required'],
+            'description' => ['nullable'],
+            'stage_requirements' => ['nullable'],
+            'others' => ['nullable'],
+            'duration' => ['nullable', 'date_format:H:i:s'],
+            'file' => ['nullable'],
+        ]);
+
+        $attributes['slug'] = Str::slug($attributes['title']);
+
+        if (request()->hasFile('file')) {
+            Storage::delete($performance->file);
+            $fileName = $performance->show->event->slug . '_' . $request->user()->username . '_' . $attributes['slug'] . '.' . request()->file('file')->extension();
+            $profilePicturePath = request()->file('file')->storeAs('performances/files', $fileName);
+            $attributes['file'] = $profilePicturePath;
+        }
 
         $performance->update($attributes);
 
         return back()->with('success', 'Performance modifiée avec succès.');
     }
 
-    /**
-     * @param Performance $performance
-     * @return RedirectResponse
-     */
-    public function destroy(Performance $performance)
-    {
-        $performance->delete();
-
-        return redirect()->route('artist.performance.index')->with('danger', 'Performance supprimée.');
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function validateRequest(Request $request): array
-    {
-        return $request->validate([
-            'event_id' => ['required', 'exists:events'],
-            'title' => ['required'],
-            'description' => ['nullable'],
-            'stage_requirements' => ['nullable'],
-            'others' => ['nullable'],
-            'duration' => ['nullable', 'date_format:i:s'],
-            'file' => ['nullable'],
-        ]);
-    }
 }

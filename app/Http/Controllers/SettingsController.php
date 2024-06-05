@@ -11,9 +11,6 @@ use Illuminate\View\View;
 
 class SettingsController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -21,12 +18,6 @@ class SettingsController extends Controller
         ]);
     }
 
-
-    /**
-     * @param ProfileUpdateRequest $request
-     * @return RedirectResponse
-     * Update user's informations.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -40,12 +31,6 @@ class SettingsController extends Controller
         return Redirect::route('profile.edit')->with('success', 'Informations modifiées.');
     }
 
-
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [

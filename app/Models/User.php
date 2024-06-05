@@ -15,76 +15,44 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = ['name', 'username', 'email', 'password', 'phone', 'phone_country', 'privacy'];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = ['password', 'remember_token',];
 
-    /**
-     * @return BelongsToMany
-     */
     public function events(): BelongsToMany
     {
         return $this->belongsToMany(Event::class);
     }
 
-    /**
-     * @return HasMany
-     * Get user's documents
-     */
     public function documents(): HasMany
     {
         return $this->hasMany(Document::class);
     }
 
-    /**
-     * @return HasMany
-     * Get user's performances
-     */
     public function performances(): HasMany
     {
         return $this->hasMany(Performance::class);
     }
 
-    /**
-     * @return HasOne
-     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }
 
-    /**
-     * @param string $role
-     * @return bool
-     */
-    public function hasRole(string $role): bool
-    {
-        return $this->roles()->where('slug', '==', $role)->exists();
-    }
-
-    /**
-     * @return BelongsToMany
-     */
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    public function hasRole(string $role): bool
+    {
+        return $this->roles()->where('slug', '=', $role)->exists();
+    }
+
     protected function casts(): array
     {
         return [
