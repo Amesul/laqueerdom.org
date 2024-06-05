@@ -42,17 +42,17 @@ Route::domain('admin.' . config('app.domain'))->middleware('auth')->name('admin.
         Route::resource('venues', VenueController::class)->only('create', 'store', 'destroy');
 
         // SHOWS
-        Route::get('/show', [ShowController::class, 'index'])->name('show.index');
-        Route::get('/show/{show}/edit', [ShowController::class, 'edit'])->name('show.edit');
+        Route::get('/shows', [ShowController::class, 'index'])->name('shows.index');
+        Route::get('/shows/{show}/edit', [ShowController::class, 'edit'])->name('shows.edit');
 
-        Route::get('/show/{show}/performances', [ShowController::class, 'editPerformances'])->name('show.edit-performances');
-        Route::get('/show/{show}/performances/{performance}', [ShowController::class, 'showPerformance'])->name('show.show-performance');
-        Route::get('/show/{show}/applications', [ShowController::class, 'editApplications'])->name('show.edit-applications');
+        Route::get('/shows/{show}/performances', [ShowController::class, 'editPerformances'])->name('shows.edit-performances');
+        Route::get('/shows/{show}/performances/{performance}', [ShowController::class, 'showPerformance'])->name('shows.show-performance');
+        Route::get('/shows/{show}/applications', [ShowController::class, 'editApplications'])->name('shows.edit-applications');
 
-        Route::patch('/show/{show}', [ShowController::class, 'update'])->name('show.update');
-        Route::patch('/show/{show}/toggle-applications', [ShowController::class, 'toggleApplications'])->name('show.toggle-applications');
-        Route::patch('/show/{show}/performances', [ShowController::class, 'updatePerformances'])->name('show.update-performances');
-        Route::patch('/applications/{application}', [ShowController::class, 'updateApplication'])->name('show.update-application');
+        Route::patch('/shows/{show}', [ShowController::class, 'update'])->name('shows.update');
+        Route::patch('/shows/{show}/toggle-applications', [ShowController::class, 'toggleApplications'])->name('shows.toggle-applications');
+        Route::patch('/shows/{show}/performances', [ShowController::class, 'updatePerformances'])->name('shows.update-performances');
+        Route::patch('/applications/{application}', [ShowController::class, 'updateApplication'])->name('shows.update-application');
 
         Route::post('/performances/create', [AdminPerformanceController::class, 'store'])->name('performances.store');
         Route::delete('/performances/{id}/delete', [AdminPerformanceController::class, 'destroy'])->name('performances.destroy');
