@@ -10,6 +10,10 @@
     Candidatures
 </x-dashboard.nav-link>
 
+<x-dashboard.nav-link href="{{ route('artist.booking.index') }}" :active="request()->is('booking')">
+    Booking
+</x-dashboard.nav-link>
+
 <x-dashboard.nav-link href="{{ route('artist.directory') }}" :active="request()->is('directory')">
     Annuaire
 </x-dashboard.nav-link>
