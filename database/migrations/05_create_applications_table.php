@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->foreignIdFor(Show::class)->constrained()->cascadeOnDelete();
             $table->string('description');
             $table->boolean('accepted')->nullable();
-            $table->boolean('reason_for_rejection')->nullable();
             $table->timestamps();
         });
     }
