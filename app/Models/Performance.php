@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Performance extends Model
@@ -14,18 +16,39 @@ class Performance extends Model
     /**
      * @var string[]
      */
-    protected $fillable = [
-        'user_id',
-        'event_id',
-        'slug',
-        'title',
-        'description',
-        'stage_requirements',
-        'others',
-        'duration',
-        'file',
-        'sort',
-    ];
+    protected $guarded = [];
+
+
+    public function advancement(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->calculateAdvancement()
+        );
+    }
+
+    private function calculateAdvancement(): int
+    {
+        $percent = 0;
+        if ($this->title) {
+            $percent += 15;
+        }
+        if ($this->description) {
+            $percent += 30;
+        }
+        if ($this->stage_requirements) {
+            $percent += 10;
+        }
+        if ($this->duration) {
+            $percent += 15;
+        }
+        if ($this->file) {
+            $percent += 15;
+        }
+        if ($this->triggerWarnings) {
+            $percent += 15;
+        }
+        return $percent;
+    }
 
     /**
      * @return BelongsTo
@@ -38,8 +61,16 @@ class Performance extends Model
     /**
      * @return BelongsTo
      */
-    public function event(): BelongsTo
+    public function show(): BelongsTo
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Show::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function triggerWarnings(): BelongsToMany
+    {
+        return $this->belongsToMany(TriggerWarning::class);
     }
 }
