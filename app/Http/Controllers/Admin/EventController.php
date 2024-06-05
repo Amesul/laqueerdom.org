@@ -67,7 +67,7 @@ class EventController extends Controller
         $attributes['type'] = $event->type;
 
         $event->update($attributes);
-        return back()->with('success', 'Événement modifié avec succès.');
+        return redirect(route('admin.events.edit', $event))->with('success', 'Événement modifié avec succès.');
     }
 
     public function destroy(Event $event): Application|Redirector|\Illuminate\Contracts\Foundation\Application|RedirectResponse
