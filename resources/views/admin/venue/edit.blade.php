@@ -1,8 +1,8 @@
 <x-dashboard-layout
-    :breadcrumbs="[['/venues', 'Partenaires'],['', $venue->name],['/venues/' . $venue->id . '/edit', 'Modifier'],]">
+    :breadcrumbs="[['/venues', 'Partenaires'],['', $venue->name],[null, 'Modifier'],]">
     <x-slot:title>Modifier une structure</x-slot:title>
 
-    <x-glassmorphism class="p-8">
+    <x-glassmorphism class="my-6 p-8">
         <form action="{{ route('admin.venues.update', $venue) }}" method="post">
             @csrf @method('PATCH')
             <div class="grid gap-8 max-w-2xl md:grid-cols-2">

@@ -14,7 +14,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('privacy.update') }}" class="mt-6 space-y-6 grid grid-cols-3">
+    <form method="post" action="{{ route('user.update') }}" class="mt-6 space-y-6 grid grid-cols-3">
         @csrf
         @method('patch')
 
@@ -67,18 +67,20 @@
                     <label for="phone_country" class="sr-only">Indicateur du pays</label>
                     <select id="phone_country" name="phone_country" autocomplete="phone_country"
                             class="h-full rounded-md border-0 bg-transparent py-0 pr-7 pl-3 text-gray-500 focus:ring-accent focus:outline-none focus:ring-2 focus:ring-inset sm:text-sm">
-                        <option value="+33">FR +33</option>
-                        <option value="+352">LU +352</option>
-                        <option value="+32">BE +32</option>
-                        <option value="+49">DE +49</option>
-                        <option value="+34">ES +34</option>
-                        <option value="+44">UK +44</option>
+                        <option value="FR" {{ $user->phone_country === 'FR'  ? 'selected' : ''}}>FR +33</option>
+                        <option value="LU" {{ $user->phone_country === 'LU'  ? 'selected' : ''}}>LU +352</option>
+                        <option value="BE" {{ $user->phone_country === 'BE'  ? 'selected' : ''}}>BE +32</option>
+                        <option value="DE" {{ $user->phone_country === 'DE'  ? 'selected' : ''}}>DE +49</option>
+                        <option value="ES" {{ $user->phone_country === 'ES'  ? 'selected' : ''}}>ES +34</option>
+                        <option value="UK" {{ $user->phone_country === 'UK'  ? 'selected' : ''}}>UK +44</option>
                     </select>
                 </div>
                 <x-text-input type="text" name="phone" id="phone" class="mt-1 block w-full pl-24"
                               placeholder="6 01 23 45 67"
-                              :value="old('phone', substr($user->phone->formatNational(), 1)) "/>
+                              :value="old('phone', substr($user->phone?->formatNational(), 1)) "/>
             </div>
+            <x-input-error class="mt-2" :messages="$errors->get('phone_country')"/>
+            <x-input-error class="mt-2" :messages="$errors->get('phone')"/>
         </div>
 
         <div class="flex items-center gap-4 col-start-1">

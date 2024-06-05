@@ -3,42 +3,21 @@
     'user'
 ])
 <li class="flex justify-between gap-x-6 py-5">
-    <div class="flex min-w-0 gap-x-4">
-        <x-profile-picture :user="$user" class="w-12 h-12"/>
-        <div class="min-w-0 flex-auto">
+    <div class="flex min-w-0 flex-1 gap-x-4">
+        <x-profile-picture :user="$user" class="h-12 w-12"/>
+        <div class="min-w-0">
             <p class="font-semibold leading-6 text-primary-900">{{ $user->name }}</p>
-            <p class="mt-1 truncate text-xs leading-5 text-slate-500">{{ $user->username }}</p>
+            <a href="mailto:{{ $user->email }}"
+               class="mt-1 truncate text-xs font-normal leading-5 text-slate-500 transition-all hover:text-slate-600 hover:underline">{{ $user->email }}</a>
         </div>
     </div>
-    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+    <div class="text-end">
         @isset($user->profile->job)
             <p class="text-sm leading-6 text-primary-900">{{  $user->profile->job }}</p>
         @endisset
-        <div class="mt-1 inline-flex gap-x-2">
-            @foreach($user->roles as $role)
-                <span
-                    class="inline-flex items-center gap-x-1 rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset {{ $role->slug === 'admin' ? 'bg-purple-50 text-purple-700 ring-purple-700/10' : ($role->slug === 'staff' ? 'bg-green-50 text-green-700 ring-green-600/20' : ($role->slug === 'volunteer' ? 'bg-blue-50 text-blue-700 ring-blue-600/20' : 'bg-accent-50 text-accent-800 ring-accent-600/25')) }}">
-                    {{ $role->name }}
-                    @if($role->slug !== 'admin')
-                        <form action="{{ route('admin.users.update', $user) }}" method="post"
-                              class="relative -mr-1 rounded-sm transition-all group h-3.5 w-3.5 hover:bg-slate-600/20">
-                            @csrf @method('PUT')
-
-                            <input type="hidden" name="remove_role" value="{{ $role->id }}">
-
-                            <button type="submit">
-                                <span class="sr-only">Retirer le rôle</span>
-                                <svg viewBox="0 0 14 14"
-                                     class="stroke-slate-600/50 transition-all h-3.5 w-3.5 group-hover:stroke-slate-600/75">
-                                    <path d="M4 4l6 6m0-6l-6 6"/>
-                                </svg>
-                            </button>
-                        </form>
-                    @endif
-                </span>
-            @endforeach
-            @if(array_intersect(['staff', 'artist', 'volunteer'], $user->roles()->pluck('slug')->toArray()) !== ['staff', 'artist', 'volunteer'])
-                <div x-data="roles" class="">
+        <div class="mt-1 hidden items-end gap-x-2 sm:inline-flex">
+            @if(array_intersect(['staff', 'artist'], $user->roles()->pluck('slug')->toArray()) !== ['staff', 'artist',])
+                <div x-data="roles">
                     <form id="update-{{ $user->username }}-roles" action="{{ route('admin.users.update', $user) }}"
                           method="POST">
                         @csrf @method('PUT')
@@ -82,6 +61,28 @@
                     </x-dropdown>
                 </div>
             @endif
+            @foreach($user->roles as $role)
+                <span
+                    class="inline-flex items-center gap-x-1 rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset {{ $role->slug === 'admin' ? 'bg-purple-50 text-purple-700 ring-purple-700/10' : ($role->slug === 'staff' ? 'bg-green-50 text-green-700 ring-green-600/20' : ($role->slug === 'volunteer' ? 'bg-blue-50 text-blue-700 ring-blue-600/20' : 'bg-accent-50 text-accent-800 ring-accent-600/25')) }}">
+                    {{ $role->name }}
+                    @if($role->slug !== 'admin')
+                        <form action="{{ route('admin.users.update', $user) }}" method="post"
+                              class="relative -mr-1 rounded-sm transition-all group h-3.5 w-3.5 hover:bg-slate-600/20">
+                            @csrf @method('PUT')
+
+                            <input type="hidden" name="remove_role" value="{{ $role->id }}">
+
+                            <button type="submit">
+                                <span class="sr-only">Retirer le rôle</span>
+                                <svg viewBox="0 0 14 14"
+                                     class="stroke-slate-600/50 transition-all h-3.5 w-3.5 group-hover:stroke-slate-600/75">
+                                    <path d="M4 4l6 6m0-6l-6 6"/>
+                                </svg>
+                            </button>
+                        </form>
+                    @endif
+                </span>
+            @endforeach
         </div>
     </div>
 

@@ -1,11 +1,11 @@
 <x-dashboard-layout :breadcrumbs="[
     ['/events', 'Événements'],
     [null, $event->title],
-    ['/events/' . $event->id . '/edit', 'Modifier '],
+    [null, 'Modifier '],
     ]">
     <x-slot:title>Modifier un événement</x-slot:title>
 
-    <x-glassmorphism class="p-8">
+    <x-glassmorphism class="my-6 p-8">
         <form action="{{ route('admin.events.update', $event) }}" method="post">
             @csrf
             @method('PATCH')
@@ -45,10 +45,10 @@
                      x-data="{ selection_id: '{{ $event->venue->id }}', selection_value: '{{ $event->venue->name }}' }">
                     <x-input-label for="venue_id" :value="__('Structure')"/>
                     <input type="hidden" name="venue_id" :value="selection_id">
-                    <x-dropdown align="left" width="full">
+                    <x-dropdown width="full">
                         <x-slot:trigger>
                             <button type="button"
-                                    class="mt-1 inline-flex w-full items-center justify-between rounded-md border bg-white text-primary px-4 py-2 text-start shadow-sm border-secondary-200 focus:border-accent focus:ring-indigo-500">
+                                    class="mt-1 inline-flex w-full items-center justify-between rounded-md border truncate bg-white text-primary px-4 py-2 text-start shadow-sm border-secondary-200 focus:border-accent focus:ring-indigo-500">
                                 <span x-text="selection_value"></span>
                                 <svg class="-mr-1 h-6 w-6 text-secondary-200" fill="currentColor" viewBox="0 0 20 20"
                                      aria-hidden="true">
@@ -61,7 +61,7 @@
                             <ul class="w-full divide-y divide-secondary/10">
                                 @foreach($venues as $venue)
                                     <li class="w-full px-4 py-2 hover:bg-slate-100 text-primary">
-                                        <button type="button"
+                                        <button type="button" class=" text-start truncate"
                                                 @click="selection_id = '{{ $venue->id }}'; selection_value = '{{ $venue->name }}';">{{ $venue->name }}</button>
                                     </li>
                                 @endforeach

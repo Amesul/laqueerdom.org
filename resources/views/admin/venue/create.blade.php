@@ -1,8 +1,8 @@
 <x-dashboard-layout
-    :breadcrumbs="[['/venues', 'Partenaires'],['/venues/create', 'Créer'],]">
+    :breadcrumbs="[['/venues', 'Partenaires'],[null, 'Créer'],]">
     <x-slot:title>Créer une structure</x-slot:title>
 
-    <x-glassmorphism class="p-8">
+    <x-glassmorphism class="my-6 p-8">
         <form action="{{ route('admin.venues.store') }}" method="post">
             @csrf
             <div class="grid gap-8 max-w-2xl md:grid-cols-2">

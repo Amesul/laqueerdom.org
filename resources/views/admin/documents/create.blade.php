@@ -1,8 +1,8 @@
-<x-dashboard-layout :breadcrumbs="[['/documents', 'Documents'], ['/documents/create' , 'Créer']]">
+<x-dashboard-layout :breadcrumbs="[['/documents', 'Documents'], ['' , 'Créer']]">
 
     <x-slot:title>Créer un document</x-slot:title>
 
-    <x-glassmorphism class="p-8">
+    <x-glassmorphism class="my-6 p-8">
         <form action="{{ route('admin.documents.store') }}" method="post" class="grid grid-cols-2 gap-8">
             @csrf
 

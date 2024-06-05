@@ -23,9 +23,10 @@
                      alt="Photo de profil">
             @endisset
             <x-secondary-button class="mt-1">
-                <label class="hover:cursor-pointer">
-                    <span>Choisir une image</span>
-                    <input id="profile_picture" name="profile_picture" type="file" class="sr-only">
+                <label class="hover:cursor-pointer" x-data="{ files: null }">
+                    <input id="profile_picture" name="profile_picture" type="file" accept="image/*" class="sr-only"
+                           x-on:change="files = Object.values($event.target.files)">
+                    <span x-text="files ? files.map(file => file.name).join(', ') : 'Choisir une image'"></span>
                 </label>
             </x-secondary-button>
             <x-input-error class="mt-2" :messages="$errors->get('profile_picture')"/>

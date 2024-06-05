@@ -1,4 +1,4 @@
-<x-dashboard-layout :breadcrumbs="[['/events','Événements'],['/events/create','Créer'],]">
+<x-dashboard-layout :breadcrumbs="[['/events','Événements'],[null,'Créer'],]">
     <x-slot:title>Créer un événement</x-slot:title>
 
     <form action="{{ route('admin.events.store') }}" method="post">

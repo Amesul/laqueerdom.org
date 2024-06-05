@@ -1,8 +1,8 @@
 <x-dashboard-layout
-    :breadcrumbs="[['/documents', 'Documents'], ['/documents/' . $document->slug, $document->title], ['/documents/' . $document->slug . '/edit', 'Modifier']]">
+    :breadcrumbs="[['/documents', 'Documents'], ['/documents/' . $document->slug, $document->title], ['', 'Modifier']]">
     <x-slot:title>Modifier un document</x-slot:title>
 
-    <x-glassmorphism class="p-8">
+    <x-glassmorphism class="my-6 p-8">
         <form action="{{ route('admin.documents.update', $document) }}" method="post" class="grid grid-cols-2 gap-8">
             @csrf
             @method('PATCH')

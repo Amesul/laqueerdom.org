@@ -24,7 +24,7 @@
     }
 @endphp
 
-<div class="relative w-fit" x-data="{ open: false }" @close.stop="open = false">
+<div class="relative {{ $width }}" x-data="{ open: false }" @close.stop="open = false">
     <div @click="open = ! open">
         {{ $trigger }}
     </div>
@@ -36,7 +36,7 @@
          x-transition:leave="transition ease-in duration-75"
          x-transition:leave-start="opacity-100 scale-100"
          x-transition:leave-end="opacity-0 scale-95"
-         class="absolute w-48 z-40 mt-2 rounded-md shadow-lg {{ $alignmentClasses }}"
+         class="absolute w-48 z-40 mt-2 rounded-md shadow-lg {{ $alignmentClasses }} w-full"
          style="display: none;">
         <div class="rounded-md ring-1 ring-black ring-opacity-5 {{ $contentClasses }}">
             {{ $content }}

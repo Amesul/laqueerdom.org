@@ -1,5 +1,5 @@
 @php $user = Illuminate\Support\Facades\Auth::user(); @endphp
-<x-dashboard-layout :breadcrumbs="[['/documents', 'Documents'], ['/documents/' . $document->slug, $document->title]]">
+<x-dashboard-layout :breadcrumbs="[['/documents', 'Documents'], ['', $document->title]]">
     <x-slot:title>{{ $document->title }}</x-slot:title>
 
     @can('update', $document)
@@ -11,7 +11,7 @@
 
     <div class="flex flex-col md:flex-row gap-4">
         <!-- Document content -->
-        <x-glassmorphism class="p-8 w-2/3">
+        <x-glassmorphism class="my-6 p-8 w-2/3">
             <section class="formatted-input">
                 {!! $document->content !!}
             </section>
@@ -19,7 +19,7 @@
 
         <!-- Comments section -->
         <aside class="space-y-6 w-1/3">
-            <x-glassmorphism class="overflow-hidden px-4 py-2 w-full h-fit">
+            <x-glassmorphism class="my-6 overflow-hidden px-4 py-2 w-full h-fit">
                 <form action="{{ route('admin.comments.store') }}" method="post">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -40,7 +40,7 @@
             </x-glassmorphism>
             <div class=" sticky top-8">
                 @foreach($comments->sortBy('created_at') as $comment)
-                    <x-glassmorphism class="p-4 w-full space-y-2 relative">
+                    <x-glassmorphism class="my-6 p-4 w-full space-y-2 relative">
                         @can('delete', $comment)
                             <form action="{{ route('admin.comments.destroy', $comment) }}" method="post"
                                   class='text-slate-400 hover:text-accent right-4 absolute transition-all'>

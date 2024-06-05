@@ -1,13 +1,13 @@
 @php $users = []; @endphp
 
-<x-dashboard-layout :breadcrumbs="[['/documents','Documents'],]">
+<x-dashboard-layout :breadcrumbs="[['','Documents'],]">
     <x-slot:title>Documents</x-slot:title>
 
     <x-slot:quickAction>
         <x-dashboard.quick-action :link="route('admin.documents.create')"/>
     </x-slot:quickAction>
 
-    <x-glassmorphism class="px-8">
+    <x-glassmorphism class="my-6 px-8">
         <ul role="list" class="divide-y divide-slate-800/25">
             @foreach($documents as $document)
                 <li class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-5 sm:flex-nowrap">

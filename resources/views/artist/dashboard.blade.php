@@ -2,7 +2,7 @@
 <x-dashboard-layout>
     <x-slot:title>Dashboard</x-slot:title>
 
-    <x-glassmorphism class="p-8">
+    <x-glassmorphism class="my-6 p-8">
         Bienvenue {{ Auth::user()->name }}
     </x-glassmorphism>
 </x-dashboard-layout>
